@@ -25,7 +25,7 @@ def getMsg():
 
 def getSender():
     position = robo.imageNeddle('./images/options.png', imageNr='last')
-    robo.rightClick(x=position[0], y=position[1], offsetLeft=150)
+    robo.rightClick(x=position[0], y=position[1], offsetLeft=150, offsetUp=5)
     robo.click(image='./images/inspect.png')
     robo.rightClick(image='./images/span.png',full_match=True)
     robo.click(image='./images/copy.png')

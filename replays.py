@@ -20,7 +20,6 @@ def process_message(msg, created_by):
         ##### Arabic Response #####
         if textlang.find('ar') == 1:
             new_msg = arabic_reshaper.reshape(new_msg)[::-1]
-            print(new_msg)
             if new_msg in [
                 arabic_reshaper.reshape("هلا")[::-1],
                 arabic_reshaper.reshape("اهلا")[::-1],
