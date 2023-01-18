@@ -12,6 +12,7 @@ now = datetime.datetime.now()
 service_account = gspread.service_account(filename='gs_account.json')
 sheet = service_account.open('Ai workflow')
 otl = sheet.worksheet('OrdersTaskList')
+orders = sheet.worksheet('Orders')
 
 def process_message(msg, created_by):
     new_msg = str(msg)
@@ -42,6 +43,8 @@ def process_message(msg, created_by):
     except Exception:
         ##### If it's a Quotation #####
         if msg[2] == '1':
+            if otl.find(msg, in_column=5) or orders.find(msg, in_column=1):
+                return pc.copy("الطلبية مكررة")
             otlTime = now.strftime("%d/%m/%Y %I:%M %p")
             otlDefault = {'Created by': '', 'Create DateTime': otlTime, 'Customer Name': '', 'Customer': '', 'Quotation': '', 'Need Approval': '', 'Brand Managers': '', 'Financial': '', 'Approved': '', 'Creditlimit': '', 'Branch Manager': '', 'CL Financial': '', 'CL Approved': '', 'Finished Date': ''}
             otlUpdate = {'Created by': created_by, 'Quotation': msg}

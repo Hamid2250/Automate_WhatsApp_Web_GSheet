@@ -20,7 +20,7 @@ def getMsg():
     if msgTime == '0':
         message = message[0:-14]
     else:
-        message = message[0:-17]
+        message = message[0:-16]
     pag.hotkey('f12')
     return message
 
