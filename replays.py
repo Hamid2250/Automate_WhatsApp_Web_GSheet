@@ -16,7 +16,7 @@ otl = sheet.worksheet('OrdersTaskList')
 def process_message(msg, created_by):
     new_msg = str(msg)
     ##### If it's a Quotation #####
-    if msg[2] == '1':
+    if new_msg[2] == '1':
         if otl.find(msg, in_column=5) is None:
             otlTime = now.strftime("%d/%m/%Y %I:%M %p")
             otlDefault = {'Created by': '', 'Create DateTime': otlTime, 'Customer Name': '', 'Customer': '', 'Quotation': '', 'Need Approval': '', 'Brand Managers': '', 'Financial': '', 'Approved': '', 'Creditlimit': '', 'Branch Manager': '', 'CL Financial': '', 'CL Approved': '', 'Finished Date': ''}
@@ -41,15 +41,20 @@ def process_message(msg, created_by):
                 return pc.copy("هلا ومرحبا")
             elif new_msg in arabic_reshaper.reshape("السلام عليكم")[::-1]:
                 return pc.copy("وعليكم السلام ورحمة الله وبركاته")
-    except:
+        
         ##### English Response #####
-        new_msg = msg.lower()
-        if new_msg in ("hi"):
-            return pc.copy("Hey!")
-        elif new_msg in ("hello"):
-            return pc.copy("hi2")
-        else:
-            return pc.copy("I don't understand")
+        elif textlang.find('en') == 1:
+            new_msg = msg.lower()
+            if new_msg in ("hi"):
+                return pc.copy("Hey!")
+            elif new_msg in ("hello"):
+                return pc.copy("hi2")
+            else:
+                return pc.copy("I don't understand")
+        else: 
+            raise Exception
+    except Exception as e:
+        return pc.copy("Error: Invalid message")
         
 
     
