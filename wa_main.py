@@ -3,6 +3,7 @@ from pyrobogui import robo, pag
 import pyperclip as pc
 import datetime
 from replays import process_message
+from time import sleep
 
 now = datetime.datetime.now()
 
@@ -27,6 +28,7 @@ def getSender():
     position = robo.imageNeddle('./images/options.png', imageNr='last')
     robo.rightClick(x=position[0], y=position[1], offsetLeft=150, offsetUp=5)
     robo.click(image='./images/inspect.png')
+    sleep(1)
     robo.rightClick(image='./images/span.png',full_match=True)
     robo.click(image='./images/copy.png')
     robo.click(image='./images/copyElement.png')

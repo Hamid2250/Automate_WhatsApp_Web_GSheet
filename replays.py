@@ -1,6 +1,6 @@
 import pyperclip as pc
 import arabic_reshaper
-from langdetect import detect_langs
+from langdetect import detect
 import datetime
 import gspread
 
@@ -17,7 +17,7 @@ def process_message(msg, created_by):
     new_msg = str(msg)
     try:
         ##### If it's a Quotation #####
-        if new_msg[2] == '1':
+        if msg[2] == '1':
             if otl.find(msg, in_column=5) is None:
                 otlTime = now.strftime("%d/%m/%Y %I:%M %p")
                 otlDefault = {'Created by': '', 'Create DateTime': otlTime, 'Customer Name': '', 'Customer': '', 'Quotation': '', 'Need Approval': '', 'Brand Managers': '', 'Financial': '', 'Approved': '', 'Creditlimit': '', 'Branch Manager': '', 'CL Financial': '', 'CL Approved': '', 'Finished Date': ''}
@@ -29,9 +29,9 @@ def process_message(msg, created_by):
             else:
                 return pc.copy("الطلبية مكررة")
     except:
-        textlang = str(detect_langs(msg))
+        textlang = detect(msg)
         ##### Arabic Response #####
-        if textlang.find('ar') == 1:
+        if textlang == 'ar':
             new_msg = arabic_reshaper.reshape(new_msg)[::-1]
             if new_msg in [
                 arabic_reshaper.reshape("هلا")[::-1],
@@ -44,7 +44,7 @@ def process_message(msg, created_by):
                 return pc.copy("وعليكم السلام ورحمة الله وبركاته")
         
         ##### English Response #####
-        elif textlang.find('en') == 1:
+        elif textlang == 'en':
             new_msg = msg.lower()
             if new_msg in ("hi"):
                 return pc.copy("Hey!")
