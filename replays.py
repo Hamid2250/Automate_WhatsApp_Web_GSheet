@@ -6,7 +6,7 @@ import gspread
 
 
 
-now = datetime.datetime.now()
+
 
 # connect to google sheets
 service_account = gspread.service_account(filename='gs_account.json')
@@ -15,6 +15,7 @@ otl = sheet.worksheet('OrdersTaskList')
 orders = sheet.worksheet('Orders')
 
 def process_message(msg, created_by):
+    now = datetime.datetime.now()
     new_msg = str(msg)
     try:
         textlang = str(detect_langs(msg))

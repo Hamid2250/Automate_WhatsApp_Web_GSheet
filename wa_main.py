@@ -5,9 +5,10 @@ import datetime
 from replays import process_message
 from time import sleep
 
-now = datetime.datetime.now()
+
 
 def getMsg():
+    now = datetime.datetime.now()
     position = robo.imageNeddle('./images/msgBox.png', imageNr='last')
     robo.rightClick(x=position[0], y=position[1], offsetRight=6)
     robo.click(image='./images/inspect.png')
